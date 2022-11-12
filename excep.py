@@ -14,22 +14,21 @@ def excep_check_zero():
     except ZeroDivisionError:
         return False
 
-async def enter_data (update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-    ent_menu = int(update.message.text)
-    context.user_data["choice"] = ent_menu
-    return ent_menu
+async def enter_data_error (update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    await update.message.reply_text ('Неверный пункт меню! Повторите ввод!')
+    ent_menu = update.message.text
+    return check_menu(ent_menu, 4)
 
 
 
-def check_menu(quan):
+
+
+def check_menu (type_menu, quan) -> int:
     while True:
         try:
-            user_data = enter_data
-            while int(user_data) not in range (1, quan):
+            while int(type_menu) not in range (1, quan):
                 log.universal_logger("Неверный пункт меню", data_description = "Ошибка ввода")
-                error_mes = 'Неверный пункт меню! Повторите ввод!'
-                user_data = enter_data
-                return error_mes
+                return enter_data_error
             return int(user_data)
         except ValueError:
             log.universal_logger("Неверный формат ввода меню", data_description = "Ошибка ввода")

@@ -1,3 +1,4 @@
+from time import sleep
 import excep
 import main
 from telegram import __version__ as TG_VER
@@ -7,10 +8,11 @@ from telegram.ext import (ContextTypes)
 from datetime import datetime as dt
 
 
-reply_keyboard_repeat_bot = [["Калькулятор"],\
-                            ["Вывод логов"],\
-                            ["Выход"]]
-markup_repeat = ReplyKeyboardMarkup(reply_keyboard_repeat_bot, one_time_keyboard=True) 
+reply_keyboard_start = [["Калькулятор"],\
+                        ["Вывод логов"],\
+                        ["Выход"]]
+
+markup_start = ReplyKeyboardMarkup(reply_keyboard_start, one_time_keyboard=True) 
 
 
 
@@ -25,15 +27,24 @@ def universal_logger(data, data_description = "действие"):
         file.write('{}; {}; {}\n'
                     .format(time, data_description, data))
                     
-async def print_log (update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+async def print_log (update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     with open('log_calc.csv', 'r', encoding='utf-8') as file:
+        text_for_print = ""
         for line in file:
-            await update.message.reply_text (line, end='')
-    await update.message.reply_text ('Хотите выполнить новую операцию?\n\
- 1 - Да\n\
- 2 - Нет', reply_markup=markup_repeat)
-    answer = excep.check_menu(3)
-    if answer == 1:
-        return main.main_menu
-    else:
-        return main.end_prog
+            text_for_print+= line
+    await update.message.reply_text (text_for_print)
+#     sleep(1)
+#     await update.message.reply_text ('Хотите выполнить новую операцию?\n\
+#  Да\n\
+#  Нет', reply_markup=markup_repeat)
+    await update.message.reply_text('Продолжим работу?\n\
+Калькулятор\nВывод логов на экран\nВыход', reply_markup=markup_start)
+    return main.main_menu
+
+# async def repeat_bot (update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+#     answer = update.message.text
+#     context.user_data["choice"] = answer
+#     if answer == "Да":
+#         return main.main_menu
+#     elif answer == "Нет":
+#         return main.end_prog

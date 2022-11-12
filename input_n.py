@@ -10,40 +10,65 @@ from telegram.ext import (ContextTypes)
 x = 0
 y = 0
 
-def init(a, b):
-    global x 
-    global y 
-    x = a
-    y = b
+async def int_num_1(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    await update.message.reply_text('Введите число 1:')
+    global x
+    a = update.message.text
+    x = int(a)
+    return int_num_2
+
+async def int_num_2(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+    await update.message.reply_text('Введите число 2:')
+    global y
+    b = update.message.text
+    y = int(b)
     log.universal_logger((x,y), data_description = "Ввод данных")
     return main.action_menu
-        
 
-async def int_num(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
+
+
+async def float_num_1(update: Update, context: ContextTypes.DEFAULT_TYPE) -> float:
     await update.message.reply_text('Введите число 1:')
-    a = excep.check_int()
+    global x
+    a = update.message.text
+    x = float(a)
+    return float_num_2
+
+async def float_num_2(update: Update, context: ContextTypes.DEFAULT_TYPE) -> float:    
     await update.message.reply_text('Введите число 2:')
-    b = excep.check_int()
-    init (a, b)
+    global y
+    b = update.message.text
+    y = float(b)
+    return main.action_menu
 
 
-async def float_num(update: Update, context: ContextTypes.DEFAULT_TYPE) -> float:
-    await update.message.reply_text('Введите число 1:')
-    a = excep.check_float()
-    await update.message.reply_text('Введите число 2:')
-    b = excep.check_float()
-    init (a, b)
+async def complex_num_1 (update: Update, context: ContextTypes.DEFAULT_TYPE) -> float:
+    await update.message.reply_text('Введите действительную часть числа 1:')
+    global d_1
+    d_1 = update.message.text
+    d_1 = float(d_1)
+    return complex_num_2
 
-
-async def complex_num (update: Update, context: ContextTypes.DEFAULT_TYPE) -> float:
-    await update.message.reply_text('\nВведите действительную часть числа 1:')
-    d_1 = excep.check_float()
+async def complex_num_2 (update: Update, context: ContextTypes.DEFAULT_TYPE) -> float:
     await update.message.reply_text('Введите мнимую часть числа 1:')
-    m_1 = excep.check_float()
-    a = complex(d_1, m_1)
-    await update.message.reply_text('\nВведите действительную часть числа 2:')
-    d_2 = excep.check_float()
-    await update.message.reply_text('Введите мнимую часть числа 2: ')
-    m_2 = excep.check_float()
-    b = complex(d_2, m_2)
-    init (a, b)
+    global x
+    m_1 = update.message.text
+    m_1 = float(m_1)
+    x = complex(d_1, m_1)
+    return complex_num_3
+
+
+async def complex_num_3 (update: Update, context: ContextTypes.DEFAULT_TYPE) -> float:
+    await update.message.reply_text('Введите действительную часть числа 2:')
+    global d_2
+    d_2 = update.message.text
+    d_2 = float(d_2)
+    return complex_num_4
+
+async def complex_num_4 (update: Update, context: ContextTypes.DEFAULT_TYPE) -> float:
+    await update.message.reply_text('Введите мнимую часть числа 2:')
+    global y
+    m_2 = update.message.text
+    m_2 = float(m_2)
+    y = complex(d_2, m_2)
+    return main.action_menu
