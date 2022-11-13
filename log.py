@@ -1,5 +1,4 @@
 from time import sleep
-import excep
 import main
 from telegram import __version__ as TG_VER
 from telegram import ReplyKeyboardMarkup, Update
@@ -33,18 +32,7 @@ async def print_log (update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
         for line in file:
             text_for_print+= line
     await update.message.reply_text (text_for_print)
-#     sleep(1)
-#     await update.message.reply_text ('Хотите выполнить новую операцию?\n\
-#  Да\n\
-#  Нет', reply_markup=markup_repeat)
+    sleep(1)
     await update.message.reply_text('Продолжим работу?\n\
 Калькулятор\nВывод логов на экран\nВыход', reply_markup=markup_start)
     return main.main_menu
-
-# async def repeat_bot (update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-#     answer = update.message.text
-#     context.user_data["choice"] = answer
-#     if answer == "Да":
-#         return main.main_menu
-#     elif answer == "Нет":
-#         return main.end_prog
