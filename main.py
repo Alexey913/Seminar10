@@ -43,7 +43,7 @@ reply_keyboard_action = [["Сложение"],\
                         ["Главное меню"],\
                         ["Выход"]]
 
-reply_keyboard_next_action = [["Продожить"],\
+reply_keyboard_next_action = [["Продолжить"],\
                             ["Новый ввод"],\
                             ["Главное меню"],\
                             ["Выход"]]
