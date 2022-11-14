@@ -376,7 +376,7 @@ async def mult(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 def main() -> None:
-    application = Application.builder().token("5545670924:AAED0cNXIPTg9ljLqUojWu-ql5peRzetxhQ").build()
+    application = Application.builder().token("token").build()
     conv_handler = ConversationHandler \
  \
         (entry_points=[CommandHandler("start", start)], \
