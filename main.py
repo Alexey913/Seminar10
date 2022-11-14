@@ -323,7 +323,8 @@ async def mult (update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
 
 def main() -> None:
-    application = Application.builder().token("5700119796:AAGgdI8yBQOzkBCRKkAhz4DpxBH6FNxMRFU").build()
+<<<<<<< HEAD
+    application = Application.builder().token("").build()
     conv_handler = ConversationHandler\
         \
         (entry_points=[CommandHandler("start", start)],\
@@ -355,6 +356,40 @@ def main() -> None:
                 next_action: [MessageHandler(filters.Regex("^Продолжить$"), repeat_same_num),\
                                MessageHandler(filters.Regex("^Новый ввод$"), choice_num),\
                                MessageHandler(filters.Regex("^Главное меню$"), main_m),\
+=======
+    application = Application.builder().token("token").build()
+    conv_handler = ConversationHandler \
+ \
+        (entry_points=[CommandHandler("start", start)], \
+ \
+         states={main_menu: [MessageHandler(filters.Regex("^Калькулятор$"), choice_num), \
+                             MessageHandler(filters.Regex("^Вывод логов$"), log.print_log), \
+                             MessageHandler(filters.Regex("^Выход$"), ending)], \
+                 numbers_menu: [MessageHandler(filters.Regex("^Целые$"), number_menu_choice_int),
+                                MessageHandler(filters.Regex("^Вещественные$"), number_menu_choice_float), \
+                                MessageHandler(filters.Regex("^Комплексные$"), number_menu_choice_complex), \
+                                MessageHandler(filters.Regex("^Главное меню$"), main_m), \
+                                MessageHandler(filters.Regex("^Выход$"), ending)], \
+                 int_num_one: [MessageHandler(filters.TEXT & ~(filters.COMMAND), int_num_1)], \
+                 int_num_two: [MessageHandler(filters.TEXT & ~(filters.COMMAND), int_num_2)], \
+                 float_num_one: [MessageHandler(filters.TEXT & ~(filters.COMMAND), float_num_1)], \
+                 float_num_two: [MessageHandler(filters.TEXT & ~(filters.COMMAND), float_num_2)], \
+                 complex_num_one: [MessageHandler(filters.TEXT & ~(filters.COMMAND), complex_num_1)], \
+                 complex_num_two: [MessageHandler(filters.TEXT & ~(filters.COMMAND), complex_num_2)], \
+                 complex_num_three: [MessageHandler(filters.TEXT & ~(filters.COMMAND), complex_num_3)], \
+                 complex_num_four: [MessageHandler(filters.TEXT & ~(filters.COMMAND), complex_num_4)], \
+                 action_menu: [MessageHandler(filters.Regex("^Сложение$"), summ), \
+                               MessageHandler(filters.Regex("^Вычитание$"), sub), \
+                               MessageHandler(filters.Regex("^Умножение$"), mult), \
+                               MessageHandler(filters.Regex("^Деление$"), float_div), \
+                               MessageHandler(filters.Regex("^Целочисленное деление$"), floor_div), \
+                               MessageHandler(filters.Regex("^Остаток от деления$"), mod_div), \
+                               MessageHandler(filters.Regex("^Главное меню$"), main_m), \
+                               MessageHandler(filters.Regex("^Выход$"), ending)], \
+                 next_action: [MessageHandler(filters.Regex("^Продолжить$"), repeat_same_num), \
+                               MessageHandler(filters.Regex("^Новый ввод$"), choice_num), \
+                               MessageHandler(filters.Regex("^Главное меню$"), main_m), \
+>>>>>>> 99223d5 (Fixes)
                                MessageHandler(filters.Regex("^Выход$"), ending)]},
                 
         fallbacks=[MessageHandler(filters.Regex("^Выход$"), ending)])
